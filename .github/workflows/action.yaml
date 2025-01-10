@@ -43,4 +43,4 @@ jobs:
 
       - name: Docker build login
         run: |
-          docker login registry-1.docker.io -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+          docker login registry-1.docker.io -u ${{  vars.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
