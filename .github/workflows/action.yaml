@@ -1,4 +1,4 @@
-name: Terraform Deployment
+name: Variables debug
 
 on:
   workflow_dispatch:
