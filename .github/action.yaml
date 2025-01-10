@@ -1,0 +1,42 @@
+name: Terraform Deployment
+
+on:
+  workflow_dispatch:
+
+# env:
+#   DOCKER_USER: ${{ secrets.DOCKER_USER }}
+#   DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
+#   DOCKER_ARTIFACTORY_HOSTNAME: ${{ secrets.DOCKER_ARTIFACTORY_HOSTNAME }}
+#   DOCKER_ARTIFACTORY_NAMESPACE: ${{ secrets.DOCKER_ARTIFACTORY_NAMESPACE }}
+#   IMAGE_REPO_NAME: ${{ secrets.IMAGE_REPO_NAME }}
+#   TWISTLOCK_ADDRESS: ${{ secrets.TWISTLOCK_ADDRESS }}
+#   TWISTLOCK_USER: ${{ secrets.TWISTLOCK_USER }}
+#   TWISTLOCK_PASSWORD: ${{ secrets.TWISTLOCK_PASSWORD }}
+#   JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+#   JENKINS_USERNAME: ${{ secrets.JENKINS_USERNAME }}
+#   JENKINS_PASSWORD: ${{ secrets.JENKINS_PASSWORD }}
+#   DOCKER_PASS_ORG: ${{ secrets.DOCKER_PASS_ORG }}
+#   TWISTLOCK_ADDRESS_ORG: ${{ secrets.TWISTLOCK_ADDRESS_ORG }}
+#   TWISTLOCK_PASSWORD_ORG: ${{ secrets.TWISTLOCK_PASSWORD_ORG }}
+
+jobs:
+  testar_variaveis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Echo vars
+        run: |
+          echo "DOCKER_USER: ${{ vars.DOCKER_USER }}"
+          echo "DOCKER_PASS: ${{ secrets.DOCKER_PASS }}"
+          echo "DOCKER_ARTIFACTORY_HOSTNAME: ${{ vars.DOCKER_ARTIFACTORY_HOSTNAME }}"
+          echo "DOCKER_ARTIFACTORY_NAMESPACE_ORG: ${{ vars.DOCKER_ARTIFACTORY_NAMESPACE_ORG }}"
+          echo "TWISTLOCK_ADDRESS: ${{ secrets.TWISTLOCK_ADDRESS }}"
+          echo "TWISTLOCK_USER: ${{ vars.TWISTLOCK_USER }}"
+          echo "TWISTLOCK_PASSWORD: ${{ secrets.TWISTLOCK_PASSWORD }}"
+          echo "JENKINS_USERNAME_ORG: ${{ vars.JENKINS_USERNAME_ORG }}"
+          echo "JENKINS_PASSWORD_ORG: ${{ vars.JENKINS_PASSWORD_ORG }}"
+          echo "DOCKER_PASS_ORG: ${{ secrets.DOCKER_PASS_ORG }}"
+          echo "TWISTLOCK_ADDRESS_ORG: ${{ secrets.TWISTLOCK_ADDRESS_ORG }}"
+          echo "TWISTLOCK_PASSWORD_ORG: ${{ secrets.TWISTLOCK_PASSWORD_ORG }}"
