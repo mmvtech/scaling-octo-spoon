@@ -40,3 +40,7 @@ jobs:
           echo "-DOCKER_PASS_ORG: ${{ secrets.DOCKER_PASS_ORG }}"
           echo "-TWISTLOCK_ADDRESS_ORG: ${{ secrets.TWISTLOCK_ADDRESS_ORG }}"
           echo "-TWISTLOCK_PASSWORD_ORG: ${{ secrets.TWISTLOCK_PASSWORD_ORG }}"
+
+      - name: Docker build login
+        run: |
+          docker login registry-1.docker.io -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
