@@ -42,6 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: artifact
+          path: artifact.txt
   
   CD_AWS_DEV:
     runs-on: ubuntu-latest
