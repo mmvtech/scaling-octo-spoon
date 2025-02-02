@@ -100,10 +100,10 @@ jobs:
           name: build-artifact
 
       - name: Configure AWS Credentials (Simulated)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ vars.AWS_ROLE_NP }}
-          aws-region: us-east-1
+        run: |
+          echo "Simulating AWS credentials configuration..."
+          sleep 2
+          echo "AWS credentials configured"
           
       - name: Login to Amazon ECR (Simulated)
         run: |
