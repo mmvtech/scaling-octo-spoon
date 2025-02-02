@@ -99,6 +99,15 @@ jobs:
         with:
           name: build-artifact
 
+      - name: Debug - Show Selected Inputs
+        run: |
+          echo "AWS_DEV = ${{ inputs.AWS_DEV }}"
+          echo "AWS_STAGE = ${{ inputs.AWS_STAGE }}"
+          echo "DEV = ${{ inputs.DEV }}"
+          echo "STAGE = ${{ inputs.STAGE }}"
+          echo "TEST = ${{ inputs.TEST }}"
+          echo "PROD = ${{ inputs.PROD }}"
+
       - name: Configure AWS Credentials (Simulated)
         run: |
           echo "Simulating AWS credentials configuration..."
@@ -118,42 +127,42 @@ jobs:
           echo "Docker image built and pushed"
 
       - name: Deploy to AWS DEV EKS (Simulated)
-        if: ${{ inputs.AWS_DEV == 'true' }}
+        if: ${{ inputs.AWS_DEV == 'true' || inputs.AWS_DEV == true }}
         run: |
           echo "Simulating deployment to AWS DEV EKS..."
           sleep 5
           echo "Deployment to AWS DEV EKS Completed"
 
       - name: Deploy to AWS STAGE EKS (Simulated)
-        if: ${{ inputs.AWS_STAGE == 'true' }}
+        if: ${{ inputs.AWS_STAGE == 'true' || inputs.AWS_STAGE == true }}
         run: |
           echo "Simulating deployment to AWS STAGE EKS..."
           sleep 5
           echo "Deployment to AWS STAGE EKS Completed"
 
       - name: Deploy to HCC DEV Kubernetes (Simulated)
-        if: ${{ inputs.DEV == 'true' }}
+        if: ${{ inputs.DEV == 'true' || inputs.DEV == true }}
         run: |
           echo "Simulating deployment to HCC DEV..."
           sleep 5
           echo "Deployment to HCC DEV Completed"
 
       - name: Deploy to HCC TEST Kubernetes (Simulated)
-        if: ${{ inputs.TEST == 'true' }}
+        if: ${{ inputs.TEST == 'true' || inputs.TEST == true }}
         run: |
           echo "Simulating deployment to HCC TEST..."
           sleep 5
           echo "Deployment to HCC TEST Completed"
 
       - name: Deploy to HCC STAGE Kubernetes (Simulated)
-        if: ${{ inputs.STAGE == 'true' }}
+        if: ${{ inputs.STAGE == 'true' || inputs.STAGE == true }}
         run: |
           echo "Simulating deployment to HCC STAGE..."
           sleep 5
           echo "Deployment to HCC STAGE Completed"
 
       - name: Deploy to HCC PROD Kubernetes (Simulated)
-        if: ${{ inputs.PROD == 'true' }}
+        if: ${{ inputs.PROD == 'true' || inputs.PROD == true }}
         run: |
           echo "Simulating deployment to HCC PROD..."
           sleep 5
