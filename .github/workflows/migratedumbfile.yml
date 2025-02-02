@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - US7871345-feature
-  pull_request:
-    branches:
       - main
   workflow_dispatch:
     inputs:
@@ -32,7 +30,7 @@ jobs:
     with:
       BUILD_TOOL: 'Maven'
       JAVA_VERSION: '17'
-      AWS_DEV: ${{ github.event_name == 'push' && github.ref == 'refs/heads/US7871345-feature' || github.event.inputs.environment == 'AWS-DEV' || github.event_name == 'pull_request' }}
+      AWS_DEV: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/US7871345-feature' || github.ref == 'refs/heads/main') || github.event.inputs.environment == 'AWS-DEV' }}
       AWS_STAGE: ${{ github.event.inputs.environment == 'AWS-STAGE' }}
       DEV: ${{ github.event.inputs.environment == 'HCC-DEV' }}
       STAGE: ${{ github.event.inputs.environment == 'HCC-STAGE' }}
