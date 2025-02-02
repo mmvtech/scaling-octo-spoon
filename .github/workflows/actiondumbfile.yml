@@ -127,42 +127,42 @@ jobs:
           echo "Docker image built and pushed"
 
       - name: Deploy to AWS DEV EKS (Simulated)
-        if: ${{ inputs.AWS_DEV == 'true' || inputs.AWS_DEV == true }}
+        if: inputs.AWS_DEV
         run: |
           echo "Simulating deployment to AWS DEV EKS..."
           sleep 5
           echo "Deployment to AWS DEV EKS Completed"
 
       - name: Deploy to AWS STAGE EKS (Simulated)
-        if: ${{ inputs.AWS_STAGE == 'true' || inputs.AWS_STAGE == true }}
+        if: inputs.AWS_STAGE
         run: |
           echo "Simulating deployment to AWS STAGE EKS..."
           sleep 5
           echo "Deployment to AWS STAGE EKS Completed"
 
       - name: Deploy to HCC DEV Kubernetes (Simulated)
-        if: ${{ inputs.DEV == 'true' || inputs.DEV == true }}
+        if: inputs.DEV
         run: |
           echo "Simulating deployment to HCC DEV..."
           sleep 5
           echo "Deployment to HCC DEV Completed"
 
       - name: Deploy to HCC TEST Kubernetes (Simulated)
-        if: ${{ inputs.TEST == 'true' || inputs.TEST == true }}
+        if: inputs.TEST
         run: |
           echo "Simulating deployment to HCC TEST..."
           sleep 5
           echo "Deployment to HCC TEST Completed"
 
       - name: Deploy to HCC STAGE Kubernetes (Simulated)
-        if: ${{ inputs.STAGE == 'true' || inputs.STAGE == true }}
+        if: inputs.STAGE
         run: |
           echo "Simulating deployment to HCC STAGE..."
           sleep 5
           echo "Deployment to HCC STAGE Completed"
 
       - name: Deploy to HCC PROD Kubernetes (Simulated)
-        if: ${{ inputs.PROD == 'true' || inputs.PROD == true }}
+        if: inputs.PROD
         run: |
           echo "Simulating deployment to HCC PROD..."
           sleep 5
