@@ -1,0 +1,37 @@
+name: 'Deploy the Test Pipeline'
+
+on:
+  push:
+    branches:
+      - US7871345-feature
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the environment for deployment'
+        required: true
+        type: choice
+        options:
+          - AWS-DEV
+          - AWS-STAGE
+          - HCC-DEV
+          - HCC-STAGE
+          - HCC-TEST
+          - HCC-PROD
+
+permissions:
+  contents: read 
+  id-token: write
+  
+jobs:
+  CI-CD:
+    uses: ./.github/workflows/actiondumbfile.yml
+    secrets: inherit
+    with:
+      BUILD_TOOL: 'Maven'
+      JAVA_VERSION: '17'
+      AWS_DEV: ${{ github.event_name == 'push' && github.ref == 'refs/heads/US7871345-feature' || github.event.inputs.environment == 'AWS-DEV' }}
+      AWS_STAGE: ${{ github.event.inputs.environment == 'AWS-STAGE' }}
+      DEV: ${{ github.event.inputs.environment == 'HCC-DEV' }}
+      STAGE: ${{ github.event.inputs.environment == 'HCC-STAGE' }}
+      TEST: ${{ github.event.inputs.environment == 'HCC-TEST' }}
+      PROD: ${{ github.event.inputs.environment == 'HCC-PROD' }}

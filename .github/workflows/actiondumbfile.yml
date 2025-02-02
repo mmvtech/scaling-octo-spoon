@@ -1,0 +1,169 @@
+name: CI/CD Simulation
+
+on:
+  workflow_call:
+    inputs:
+      BUILD_TOOL:
+        description: 'Build tool to use (Maven/Poetry)'
+        required: true
+        type: string
+        default: 'Maven'
+      JAVA_VERSION:
+        description: 'Java version to use'
+        required: false
+        type: string
+      AWS_DEV:
+        description: 'Deploy to AWS Dev'
+        required: false
+        type: boolean
+      AWS_STAGE:
+        description: 'Deploy to AWS Stage'
+        required: false
+        type: boolean
+      DEV: 
+        description: 'Deploy to HCC Dev'
+        required: false
+        type: boolean
+      TEST:
+        description: 'Deploy to HCC Test'
+        required: false
+        type: boolean
+      STAGE:
+        description: 'Deploy to HCC Stage'
+        required: false
+        type: boolean
+      PROD:
+        description: 'Deploy to HCC Production'
+        required: false
+        type: boolean
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Create pom.xml (Simulated)
+        run: |
+          echo "Creating pom.xml..."
+          touch pom.xml
+          echo "pom.xml Created"
+
+      - name: Detect Build Tool
+        run: |
+          if [ -f "pyproject.toml" ]; then
+            echo "BUILD_TOOL=Poetry" >> $GITHUB_ENV
+          elif [ -f "pom.xml" ]; then
+            echo "BUILD_TOOL=Maven" >> $GITHUB_ENV
+          else
+            echo "Nenhum build tool identificado. Saindo..."
+            exit 1
+          fi
+
+      - name: Simulate Maven Setup
+        if: ${{ env.BUILD_TOOL == 'Maven' }}
+        run: |
+          echo "Setting up Maven (Simulated)"
+          sleep 3
+          echo "Maven Setup Complete"
+
+      - name: Simulate Maven Build
+        if: ${{ env.BUILD_TOOL == 'Maven' }}
+        run: |
+          echo "Running Maven Build (Simulated)"
+          sleep 5
+          echo "Maven Build Completed"
+
+      - name: Create Artifact (Simulated)
+        run: |
+          echo "Simulating build artifact creation..."
+          touch artifact.txt
+          echo "Build Artifact Ready"
+
+      - name: Upload Artifacts (Simulated)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: artifact.txt
+
+  CD:
+    needs: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+
+      - name: Debug - Show Selected Inputs
+        run: |
+          echo "AWS_DEV = ${{ inputs.AWS_DEV }}"
+          echo "AWS_STAGE = ${{ inputs.AWS_STAGE }}"
+          echo "DEV = ${{ inputs.DEV }}"
+          echo "STAGE = ${{ inputs.STAGE }}"
+          echo "TEST = ${{ inputs.TEST }}"
+          echo "PROD = ${{ inputs.PROD }}"
+
+      - name: Configure AWS Credentials (Simulated)
+        run: |
+          echo "Simulating AWS credentials configuration..."
+          sleep 2
+          echo "AWS credentials configured"
+          
+      - name: Login to Amazon ECR (Simulated)
+        run: |
+          echo "Simulating Amazon ECR login..."
+          sleep 2
+          echo "Logged in to Amazon ECR"
+
+      - name: Build and Push ECR Image (Simulated)
+        run: |
+          echo "Simulating Docker build & push..."
+          sleep 4
+          echo "Docker image built and pushed"
+
+      - name: Deploy to AWS DEV EKS (Simulated)
+        if: ${{ inputs.AWS_DEV == 'true' || inputs.AWS_DEV == true }}
+        run: |
+          echo "Simulating deployment to AWS DEV EKS..."
+          sleep 5
+          echo "Deployment to AWS DEV EKS Completed"
+
+      - name: Deploy to AWS STAGE EKS (Simulated)
+        if: ${{ inputs.AWS_STAGE == 'true' || inputs.AWS_STAGE == true }}
+        run: |
+          echo "Simulating deployment to AWS STAGE EKS..."
+          sleep 5
+          echo "Deployment to AWS STAGE EKS Completed"
+
+      - name: Deploy to HCC DEV Kubernetes (Simulated)
+        if: ${{ inputs.DEV == 'true' || inputs.DEV == true }}
+        run: |
+          echo "Simulating deployment to HCC DEV..."
+          sleep 5
+          echo "Deployment to HCC DEV Completed"
+
+      - name: Deploy to HCC TEST Kubernetes (Simulated)
+        if: ${{ inputs.TEST == 'true' || inputs.TEST == true }}
+        run: |
+          echo "Simulating deployment to HCC TEST..."
+          sleep 5
+          echo "Deployment to HCC TEST Completed"
+
+      - name: Deploy to HCC STAGE Kubernetes (Simulated)
+        if: ${{ inputs.STAGE == 'true' || inputs.STAGE == true }}
+        run: |
+          echo "Simulating deployment to HCC STAGE..."
+          sleep 5
+          echo "Deployment to HCC STAGE Completed"
+
+      - name: Deploy to HCC PROD Kubernetes (Simulated)
+        if: ${{ inputs.PROD == 'true' || inputs.PROD == true }}
+        run: |
+          echo "Simulating deployment to HCC PROD..."
+          sleep 5
+          echo "Deployment to HCC PROD Completed"
