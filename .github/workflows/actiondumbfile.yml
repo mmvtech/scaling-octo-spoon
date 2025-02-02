@@ -155,14 +155,14 @@ jobs:
           echo "Deployment to HCC TEST Completed"
 
       - name: Deploy to HCC STAGE Kubernetes (Simulated)
-        if: ${{ inputs.STAGE == 'true' || inputs.STAGE == true }}
+        if: inputs.STAGE
         run: |
           echo "Simulating deployment to HCC STAGE..."
           sleep 5
           echo "Deployment to HCC STAGE Completed"
 
       - name: Deploy to HCC PROD Kubernetes (Simulated)
-        if: ${{ inputs.PROD == 'true' || inputs.PROD == true }}
+        if: inputs.PROD
         run: |
           echo "Simulating deployment to HCC PROD..."
           sleep 5
