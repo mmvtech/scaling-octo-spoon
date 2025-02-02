@@ -134,7 +134,7 @@ jobs:
           echo "Deploying to AWS-STAGE Cluster..."
           sleep 5
           echo "Deployment to AWS-STAGE Completed"
-
+ 
   CD_HCC_MANUAL:
     needs: CI
     runs-on: ubuntu-latest

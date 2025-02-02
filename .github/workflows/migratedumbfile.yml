@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - US7871345-feature
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       environment:
